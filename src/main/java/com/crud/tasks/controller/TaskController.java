@@ -6,6 +6,7 @@ import com.crud.tasks.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.DiscriminatorColumn;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -27,7 +28,7 @@ public class TaskController {
         return taskMapper.mapToTaskDto(service.getTask(taskId).orElseThrow(TaskNotFoundException::new));
     }
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteTask")
-    public void deleteTask(@RequestBody Long taskId) {
+    public void deleteTask(@RequestParam Long taskId) {
         service.deleteTask(taskId);
     }
     @RequestMapping(method = RequestMethod.PUT, value = "updateTask")
