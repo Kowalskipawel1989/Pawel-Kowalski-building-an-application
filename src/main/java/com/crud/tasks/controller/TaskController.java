@@ -6,17 +6,17 @@ import com.crud.tasks.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 
 @RestController
 @RequestMapping("/v1/task")
+@CrossOrigin(origins = "*")
 public class TaskController {
     @Autowired
     private DbService service;
     @Autowired
     private TaskMapper taskMapper;
+
     @RequestMapping(method = RequestMethod.GET, value = "getTasks")
     public List<TaskDto>getTasks() {
         return taskMapper.mapToTaskDtoList(service.getAllTasks());
