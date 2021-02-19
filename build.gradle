@@ -19,7 +19,6 @@ dependencies {
 	compile('mysql:mysql-connector-java')
 	compileOnly 'org.projectlombok:lombok:1.18.12'
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'
-	compile('org.apache.tomcat.embed:tomcat-embed-jasper')
 
 	testCompileOnly 'org.projectlombok:lombok:1.18.12'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
