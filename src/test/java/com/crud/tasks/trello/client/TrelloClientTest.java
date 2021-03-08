@@ -1,11 +1,14 @@
 package com.crud.tasks.trello.client;
 
 
+import com.crud.tasks.domain.Badges;
 import com.crud.tasks.domain.CreatedTrelloCard;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.trello.config.TrelloConfig;
 import org.junit.Before;
+
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -35,6 +38,7 @@ public class TrelloClientTest {
     @Before
     public void init(){
         when(trelloConfig.getTrelloApiEndpoint()).thenReturn("http://test.com");
+        when(trelloConfig.getTrelloUserName()).thenReturn("pawelkowalski53");
         when(trelloConfig.getTrelloAppKey()).thenReturn("test");
         when(trelloConfig.getTrelloToken()).thenReturn("test");
     }
@@ -47,7 +51,7 @@ public class TrelloClientTest {
 
         URI uri = new URI("http://test.com/members/pawelkowalski53/boards?key=test&token=test&fields=name,id&lists=all");
 
-        when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(trelloBoards);
+        when(restTemplate.getForObject(uri , TrelloBoardDto[].class)).thenReturn(trelloBoards);
 
         //When
         List<TrelloBoardDto> fetchedTrelloBoards = trelloClient.getTrelloBoards();
@@ -73,7 +77,9 @@ public class TrelloClientTest {
         CreatedTrelloCard createdTrelloCard = new CreatedTrelloCard(
                 "1",
                 "Test task",
-                "http://test.com"
+                "http://test.com",
+                new Badges()
+
         );
         when(restTemplate.postForObject(uri, null, CreatedTrelloCard.class)).thenReturn(createdTrelloCard);
         //When
@@ -82,6 +88,13 @@ public class TrelloClientTest {
         assertEquals("1", newCard.getId());
         assertEquals("Test task", newCard.getName());
         assertEquals("http://test.com", newCard.getShortUrl());
+    }
+    @Test
+    public void shouldReturnEmptyList(){
+        //Given
+
+        //When
+        //Then
     }
 
 }
